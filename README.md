@@ -57,40 +57,23 @@ While this case study demonstrates hands-on AWS Console implementation for learn
 ```
 iam-security-casestudy/
 ├── 📋 documentation/
-│   ├── case-study.pdf                   # Complete case study document
+│   ├── case-study-overview.md           # Complete case study summary
 │   ├── implementation-guide.md          # Step-by-step deployment guide
-│   └── security-best-practices.md       # IAM optimization strategies
+│   └── security-best-practices.md       # IAM security recommendations
 ├── 🔧 scripts/
-│   ├── user-management/                 # User creation & configuration
-│   ├── group-policies/                  # Group and policy automation
-│   ├── security-setup/                  # MFA and security policies
-│   └── governance/                      # Compliance and monitoring
+│   └── automation/                      # Infrastructure automation scripts
 ├── ⚙️ configurations/
-│   ├── all_configuration_files.md       # All AWS configurations
 │   ├── iam-policies/                    # Custom IAM policies (JSON)
-│   │   ├── ec2-launchstop-policy.json
-│   │   ├── vpc-management-policy.json
-│   │   ├── rds-management-policy.json
-│   │   └── security-enhanced-policy.json
-│   ├── user-configs/                    # User account configurations
-│   ├── group-configs/                   # Group membership configurations
 │   ├── security-settings/               # MFA and password policies
-│   ├── tagging-policies/               # Resource governance policies
-│   ├── monitoring/                      # CloudTrail configurations
-│   └── cost-optimization/               # Cost management settings
-├── 📸 screenshots/                     # Implementation evidence
-│   ├── user-creation/
-│   ├── group-setup/
-│   ├── policy-attachments/
-│   ├── mfa-setup/
-│   └── testing-validation/
-├── 📸 architecture/                    # Architecture diagrams
-├── 🧪 testing/                         # Test results and validation
-│   ├── permission-testing.md
-│   ├── security-validation.md
-│   └── compliance-checks.md
-├── 📊 monitoring/                      # CloudTrail and monitoring
-└── 💰 cost-analysis/                   # Financial impact analysis 
+│   └── governance/                      # Tagging and compliance policies
+├── 🧪 testing/
+│   └── validation-results.md            # Security testing outcomes
+├── 📊 monitoring/
+│   └── cloudtrail-setup.md             # Audit logging configuration
+├── 💰 cost-analysis/
+│   └── cost-optimization.md             # Financial impact analysis
+└── 🏗️ architecture/
+    └── security-architecture.md         # System design documentation
 ```
 
 ## 🚀 Quick Start
@@ -165,12 +148,12 @@ This project demonstrates practical experience with:
 
 ## 📚 Documentation
 
-- **[Complete Case Study](documentation/case-study.pdf)** - Full security analysis
+- **[Case Study Overview](documentation/case-study-overview.md)** - Complete security analysis
 - **[Implementation Guide](documentation/implementation-guide.md)** - Step-by-step instructions
-- **[IAM Policies](configurations/iam-policies/)** - All custom JSON policies
-- **[Security Configurations](configurations/security-settings/)** - MFA and password setup
-- **[Testing Results](testing/)** - Detailed validation reports
-- **[Architecture Diagrams](architecture/)** - Visual security design
+- **[Security Best Practices](documentation/security-best-practices.md)** - IAM optimization strategies
+- **[IAM Policies](configurations/iam-policies/)** - Custom JSON policies
+- **[Testing Results](testing/validation-results.md)** - Security validation outcomes
+- **[Architecture Design](architecture/security-architecture.md)** - System design documentation
 
 ## 🔗 Academic Context
 
