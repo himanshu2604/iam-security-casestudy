@@ -1,0 +1,33 @@
+{
+  "TaggingPolicy": {
+    "MandatoryTags": [
+      { "Key": "Environment", "AllowedValues": ["dev", "staging", "production"] },
+      { "Key": "Project", "AllowedValues": ["XYZ-Migration", "Shared"] },
+      { "Key": "Owner", "AllowedValues": ["it-ops", "devops", "platform"] },
+      { "Key": "CostCenter", "AllowedValues": ["CC1001", "CC1002", "CC2001"] }
+    ],
+    "Enforcement": {
+      "Effect": "Deny",
+      "Actions": [
+        "ec2:RunInstances",
+        "ec2:CreateVolume",
+        "rds:CreateDBInstance",
+        "s3:CreateBucket",
+        "iam:CreateRole"
+      ],
+      "Condition": {
+        "ForAnyValue:StringNotEquals": {
+          "aws:RequestTag/Environment": ["dev", "staging", "production"],
+          "aws:RequestTag/Project": ["XYZ-Migration", "Shared"],
+          "aws:RequestTag/Owner": ["it-ops", "devops", "platform"],
+          "aws:RequestTag/CostCenter": ["CC1001", "CC1002", "CC2001"]
+        }
+      }
+    }
+  },
+  "ComplianceNotes": [
+    "Denies resource creation if mandatory tags are missing or invalid",
+    "Ensures consistent cost allocation and governance",
+    "Apply at account or OU level via SCP or IAM policy"
+  ]
+}

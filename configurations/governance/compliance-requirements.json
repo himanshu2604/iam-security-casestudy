@@ -1,0 +1,75 @@
+{
+  "ComplianceFramework": {
+    "Organization": "XYZ Corporation",
+    "Standards": ["AWS Well-Architected", "NIST Cybersecurity Framework", "ISO 27001"],
+    "AuditFrequency": "Quarterly",
+    "LastReview": "2025-09-09",
+    "NextReview": "2025-12-09"
+  },
+  "IAMComplianceRequirements": {
+    "AccessManagement": {
+      "PrincipleOfLeastPrivilege": {
+        "Required": true,
+        "Implementation": "Role-based access with minimal necessary permissions",
+        "ValidationMethod": "Monthly access review and permission audit"
+      },
+      "MFAEnforcement": {
+        "Required": true,
+        "Coverage": "100% for users with console access",
+        "GracePeriod": "7 days for new user accounts"
+      },
+      "PasswordSecurity": {
+        "MinimumLength": 12,
+        "ComplexityRequired": true,
+        "RotationPeriod": 90,
+        "HistoryPrevention": 5
+      }
+    },
+    "ResourceGovernance": {
+      "MandatoryTagging": {
+        "Required": true,
+        "Tags": ["Environment", "Project", "Owner", "CostCenter"],
+        "Enforcement": "Deny resource creation without proper tags"
+      },
+      "AccessLogging": {
+        "CloudTrail": {
+          "Enabled": true,
+          "DataEvents": true,
+          "ManagementEvents": true,
+          "MultiRegion": true
+        }
+      }
+    }
+  },
+  "AuditChecklist": [
+    "Verify all users have MFA enabled",
+    "Review user group memberships and permissions",
+    "Validate resource tagging compliance",
+    "Check CloudTrail logging configuration",
+    "Assess password policy compliance",
+    "Review access keys age and rotation",
+    "Validate condition-based policies effectiveness"
+  ],
+  "ReportingRequirements": {
+    "Monthly": [
+      "Access review report",
+      "MFA compliance status",
+      "Resource tagging metrics"
+    ],
+    "Quarterly": [
+      "Full security assessment",
+      "Policy effectiveness review",
+      "Compliance gap analysis"
+    ],
+    "Annually": [
+      "Complete IAM architecture review",
+      "Security control assessment",
+      "Disaster recovery validation"
+    ]
+  },
+  "NonComplianceActions": {
+    "Level1": "Warning notification and 48-hour remediation period",
+    "Level2": "Access suspension until compliance is restored",
+    "Level3": "Account lockdown and security team escalation"
+  }
+}

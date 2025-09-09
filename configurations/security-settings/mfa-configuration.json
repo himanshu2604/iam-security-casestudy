@@ -1,0 +1,48 @@
+{
+  "MFAConfiguration": {
+    "RequiredForUsers": true,
+    "SupportedDeviceTypes": [
+      "Virtual MFA Device",
+      "Hardware MFA Device",
+      "SMS MFA (not recommended for production)"
+    ],
+    "RecommendedApps": [
+      "Google Authenticator",
+      "Microsoft Authenticator",
+      "Authy",
+      "AWS Virtual MFA"
+    ]
+  },
+  "EnforcementPolicy": {
+    "GracePeriodDays": 7,
+    "MandatoryForCriticalOperations": true,
+    "ExemptedActions": [
+      "iam:GetUser",
+      "iam:ListMFADevices",
+      "iam:CreateVirtualMFADevice",
+      "iam:EnableMFADevice"
+    ]
+  },
+  "SetupInstructions": {
+    "Step1": "Navigate to IAM Console -> Users -> [Username] -> Security credentials",
+    "Step2": "Click 'Assign MFA device' in Multi-factor authentication section",
+    "Step3": "Choose 'Virtual MFA device' and click Continue",
+    "Step4": "Install authenticator app on mobile device",
+    "Step5": "Scan QR code or enter secret key manually",
+    "Step6": "Enter two consecutive MFA codes to complete setup",
+    "Step7": "Download and securely store recovery codes"
+  },
+  "SecurityBestPractices": [
+    "Use virtual MFA devices over SMS when possible",
+    "Store backup recovery codes in secure location",
+    "Register multiple MFA devices for redundancy",
+    "Regularly test MFA device functionality",
+    "Report lost or compromised devices immediately"
+  ],
+  "ComplianceRequirements": {
+    "CriticalActions": "MFA required for EC2 operations, IAM changes, billing access",
+    "SessionDuration": "Maximum 12 hours for MFA sessions",
+    "DeviceRegistration": "Must be completed within 7 days of account creation",
+    "AuditFrequency": "Monthly review of MFA compliance status"
+  }
+}
