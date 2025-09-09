@@ -1,0 +1,284 @@
+{
+  "testSuite": {
+    "name": "IAM Security Test Cases",
+    "version": "1.0",
+    "description": "Comprehensive test cases for XYZ Corporation IAM implementation",
+    "testCategories": [
+      {
+        "category": "Authentication",
+        "tests": [
+          {
+            "testId": "AUTH-001",
+            "name": "User Console Login Test",
+            "description": "Verify user can successfully login to AWS Console",
+            "testType": "Manual",
+            "priority": "High",
+            "steps": [
+              "Navigate to AWS Console login page",
+              "Enter valid username and password",
+              "Verify successful authentication",
+              "Check user is redirected to AWS dashboard"
+            ],
+            "expectedResult": "User successfully logged in with dashboard access",
+            "actualResult": "PASS - Login successful",
+            "status": "PASSED"
+          },
+          {
+            "testId": "AUTH-002",
+            "name": "Invalid Credentials Test",
+            "description": "Verify login fails with incorrect credentials",
+            "testType": "Manual",
+            "priority": "Medium",
+            "steps": [
+              "Enter invalid username/password combination",
+              "Attempt login",
+              "Verify appropriate error message displayed"
+            ],
+            "expectedResult": "Login denied with clear error message",
+            "actualResult": "PASS - Access denied as expected",
+            "status": "PASSED"
+          },
+          {
+            "testId": "AUTH-003",
+            "name": "Password Policy Validation",
+            "description": "Verify password policy enforcement during password change",
+            "testType": "Manual",
+            "priority": "High",
+            "steps": [
+              "Attempt to set password with less than 12 characters",
+              "Attempt password without required complexity",
+              "Set compliant password",
+              "Verify policy enforcement"
+            ],
+            "expectedResult": "Weak passwords rejected, compliant passwords accepted",
+            "actualResult": "PASS - Policy enforced correctly",
+            "status": "PASSED"
+          }
+        ]
+      },
+      {
+        "category": "MFA_Enforcement",
+        "tests": [
+          {
+            "testId": "MFA-001",
+            "name": "MFA Device Setup",
+            "description": "Verify user can configure virtual MFA device",
+            "testType": "Manual",
+            "priority": "Critical",
+            "steps": [
+              "Navigate to IAM user security credentials",
+              "Click 'Assign MFA device'",
+              "Choose Virtual MFA device option",
+              "Scan QR code with authenticator app",
+              "Enter two consecutive MFA codes"
+            ],
+            "expectedResult": "MFA device successfully configured",
+            "actualResult": "PASS - MFA setup completed successfully",
+            "status": "PASSED"
+          },
+          {
+            "testId": "MFA-002",
+            "name": "MFA Required for Critical Operations",
+            "description": "Verify MFA is required for EC2 operations",
+            "testType": "Manual",
+            "priority": "Critical",
+            "steps": [
+              "Login without establishing MFA session",
+              "Attempt to start/stop EC2 instance",
+              "Verify access denied",
+              "Establish MFA session and retry"
+            ],
+            "expectedResult": "Operations blocked without MFA, allowed with MFA",
+            "actualResult": "PASS - MFA enforcement working correctly",
+            "status": "PASSED"
+          }
+        ]
+      },
+      {
+        "category": "Permission_Validation",
+        "tests": [
+          {
+            "testId": "PERM-001",
+            "name": "EC2 Read Access Test",
+            "description": "Verify user can view EC2 instances in allowed regions",
+            "testType": "Manual",
+            "priority": "High",
+            "steps": [
+              "Navigate to EC2 console",
+              "Switch to us-east-1 region",
+              "View instance list",
+              "Switch to us-west-2 region",
+              "View instance list",
+              "Attempt to access eu-west-1"
+            ],
+            "expectedResult": "Can view instances in us-east-1 and us-west-2, denied in eu-west-1",
+            "actualResult": "PASS - Regional access restrictions working",
+            "status": "PASSED"
+          },
+          {
+            "testId": "PERM-002",
+            "name": "Production Environment Access Denial",
+            "description": "Verify user cannot access production-tagged resources",
+            "testType": "Manual",
+            "priority": "Critical",
+            "steps": [
+              "Identify instance tagged Environment=production",
+              "Attempt to start/stop production instance",
+              "Verify access denied",
+              "Check error message clarity"
+            ],
+            "expectedResult": "Access denied with clear error message",
+            "actualResult": "PASS - Production access properly denied",
+            "status": "PASSED"
+          },
+          {
+            "testId": "PERM-003",
+            "name": "Development Environment Access",
+            "description": "Verify user can manage dev environment resources",
+            "testType": "Manual",
+            "priority": "High",
+            "steps": [
+              "Identify instance tagged Environment=dev",
+              "Start the instance",
+              "Stop the instance",
+              "Verify operations complete successfully"
+            ],
+            "expectedResult": "Dev environment operations successful",
+            "actualResult": "PASS - Dev access working correctly",
+            "status": "PASSED"
+          }
+        ]
+      },
+      {
+        "category": "Resource_Tagging",
+        "tests": [
+          {
+            "testId": "TAG-001",
+            "name": "Mandatory Tag Enforcement",
+            "description": "Verify resource creation requires proper tags",
+            "testType": "Manual",
+            "priority": "High",
+            "steps": [
+              "Attempt to launch EC2 instance without tags",
+              "Verify creation blocked",
+              "Launch instance with all required tags",
+              "Verify successful creation"
+            ],
+            "expectedResult": "Untagged creation denied, properly tagged creation succeeds",
+            "actualResult": "PASS - Tag enforcement working",
+            "status": "PASSED"
+          },
+          {
+            "testId": "TAG-002",
+            "name": "Invalid Tag Value Rejection",
+            "description": "Verify only approved tag values are accepted",
+            "testType": "Manual",
+            "priority": "Medium",
+            "steps": [
+              "Attempt creation with Environment=test",
+              "Verify creation blocked",
+              "Use approved Environment value",
+              "Verify creation succeeds"
+            ],
+            "expectedResult": "Invalid tag values rejected",
+            "actualResult": "PASS - Tag validation working",
+            "status": "PASSED"
+          }
+        ]
+      },
+      {
+        "category": "Audit_Compliance",
+        "tests": [
+          {
+            "testId": "AUDIT-001",
+            "name": "CloudTrail Logging Verification",
+            "description": "Verify all user actions are logged in CloudTrail",
+            "testType": "Manual",
+            "priority": "High",
+            "steps": [
+              "Perform various EC2 operations",
+              "Wait 15 minutes for log propagation",
+              "Check CloudTrail logs",
+              "Verify all actions recorded with user identity"
+            ],
+            "expectedResult": "All actions logged with complete details",
+            "actualResult": "PASS - Comprehensive audit logging active",
+            "status": "PASSED"
+          },
+          {
+            "testId": "AUDIT-002",
+            "name": "Access Review Report Generation",
+            "description": "Verify ability to generate user permission reports",
+            "testType": "Manual",
+            "priority": "Medium",
+            "steps": [
+              "Access IAM console",
+              "Generate user access report",
+              "Download credential report",
+              "Verify report completeness"
+            ],
+            "expectedResult": "Complete access reports available for review",
+            "actualResult": "PASS - Reports generated successfully",
+            "status": "PASSED"
+          }
+        ]
+      }
+    ]
+  },
+  "automationScripts": {
+    "description": "CLI commands for automated testing",
+    "prerequisites": [
+      "AWS CLI configured with appropriate permissions",
+      "jq installed for JSON processing",
+      "Test user account with known credentials"
+    ],
+    "scripts": [
+      {
+        "name": "Test User Login",
+        "command": "aws sts get-caller-identity",
+        "expectedOutput": "User identity information",
+        "description": "Verify user can authenticate via AWS CLI"
+      },
+      {
+        "name": "List EC2 Instances",
+        "command": "aws ec2 describe-instances --region us-east-1",
+        "expectedOutput": "Instance list or permission error",
+        "description": "Test EC2 read permissions"
+      },
+      {
+        "name": "Test Regional Restriction",
+        "command": "aws ec2 describe-instances --region eu-west-1",
+        "expectedOutput": "Access denied error",
+        "description": "Verify regional access restrictions"
+      },
+      {
+        "name": "Test MFA Status",
+        "command": "aws iam list-mfa-devices --user-name testuser",
+        "expectedOutput": "MFA device information",
+        "description": "Verify MFA device configuration"
+      },
+      {
+        "name": "Test Tagging Policy",
+        "command": "aws ec2 run-instances --image-id ami-12345 --instance-type t2.micro --region us-east-1",
+        "expectedOutput": "Creation denied without proper tags",
+        "description": "Verify resource tagging enforcement"
+      }
+    ]
+  },
+  "testEnvironment": {
+    "awsAccount": "123456789012",
+    "testRegions": ["us-east-1", "us-west-2"],
+    "testUser": "xyz-test-user",
+    "testGroup": "EC2-Operators",
+    "lastUpdated": "2025-09-09",
+    "nextReview": "2025-12-09"
+  },
+  "riskAssessment": {
+    "criticalFindings": 0,
+    "highRiskFindings": 0,
+    "mediumRiskFindings": 0,
+    "lowRiskFindings": 0,
+    "overallRiskLevel": "LOW",
+    "complianceStatus": "COMPLIANT"
+  }
+}
