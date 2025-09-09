@@ -20,16 +20,8 @@ XYZ Corporation successfully migrated from expensive on-premise infrastructure t
 
 ## Solution Architecture
 
-### IAM Implementation Strategy
-```
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   IAM Users     │────│  IAM Groups     │────│  AWS Resources  │
-│                 │    │                 │    │                 │
-│ • dev-user-xyz  │    │ • EC2-Operators │    │ • EC2 Instances │
-│ • MFA Enabled   │    │ • RDS-Admins    │    │ • RDS Databases │
-│ • Strong Policy │    │ • VPC-Managers  │    │ • VPC Networks  │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-```
+<img width="1841" height="887" alt="diagram-export-9-9-2025-7_13_17-PM" src="https://github.com/user-attachments/assets/df3190b7-fa6e-44ce-a8aa-3451c3537972" />
+
 
 ### Security Controls Implemented
 1. **Multi-Factor Authentication** - Virtual MFA devices for all users
